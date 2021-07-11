@@ -15,6 +15,8 @@ import LineGraph from "./LineGraph";
 //import "mapbox-gl/dist/mapbox-gl.css";
 import "leaflet/dist/leaflet.css";
 import "./InfoBox.css";
+//import styled from "styled-components";
+//import { DarkMode } from "@styled-icons/material-twotone";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -26,6 +28,8 @@ function App() {
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");
   const [isLoading, setLoading] = useState(false);
+  const [theme, setTheme] = useState(true);
+  const [imageLink,setImageLink]=useState("https://static.thenounproject.com/png/765894-200.png");
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -77,21 +81,48 @@ function App() {
         setLoading(false);
         // console.log([data.countryInfo.lat, data.countryInfo.long]);
         countryCode === "worldwide"
-          ? setMapCenter([34.80746, -40.4796])
+          ? setMapCenter([34.0479, 100.6197])
           : setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
         setZoom(4);
       });
 
     console.log(countryInfo);
   };
-
+  /*function onInfoboxClick(caseType) {
+    if (casesType === "cases") {
+      setCasesType("cases");
+    } else if (casesType === "recovered") {
+      setCasesType("recovered");
+    } else if (casesType === "active") {
+      setCasesType("active");
+      return;
+    } else {
+      setCasesType("deaths");
+    }
+  }*/
+  function theme_setter() {
+    if (theme === true) {
+      setTheme(false);
+      setImageLink("https://cdn1.iconfinder.com/data/icons/mix-ui/24/Sun_Brightness_Day_Light_Weather_Mode-512.png")
+    } else {
+      setTheme(true);
+      setImageLink("https://static.thenounproject.com/png/765894-200.png");
+    }
+    console.log(theme);
+  }
   return (
-    <div className="app">
+    <div className={`app ${!theme && "app__dark"}`}>
       <div className="app__left">
         <div className="app__header">
-          <h1>Covid-19 tracker</h1>
+          <h1 className={`app__heading ${!theme && "heading__dark"}`}>Covid-19 Tracker</h1>
           {/* Heading*/}
-          <FormControl className="app__dropdown">
+          <img
+            onClick={theme_setter}
+            className="app__icon"
+            alt=""
+            src={imageLink}
+          ></img>
+          <FormControl className={`app__dropdown ${!theme && "app__dropdownDark"}`}>
             <Select
               variant="outlined"
               onChange={onCountryChange}
@@ -107,8 +138,9 @@ function App() {
         </div>
 
         <div className="app__stats">
-        {/*Infobox about cases, recovered and deaths  */}
+          {/*Infobox about cases, recovered and deaths  */}
           <InfoBox
+            theme={theme}
             isRed
             active={casesType === "cases"}
             className="infoBox__cases"
@@ -119,6 +151,25 @@ function App() {
             isloading={isLoading}
           />
           <InfoBox
+          theme={theme}
+            isBlue
+            active={casesType === "active"}
+            className="infoBox__active"
+            onClick={(e) => setCasesType("active")}
+            title="Active"
+            total={prettyPrintStat(
+              countryInfo.cases - countryInfo.recovered - countryInfo.deaths
+            )}
+            cases={prettyPrintStat(
+              countryInfo.todayCases -
+                countryInfo.todayRecovered -
+                countryInfo.todayDeaths
+            )}
+            isloading={isLoading}
+          />
+          <InfoBox
+            isGreen
+            theme={theme}
             active={casesType === "recovered"}
             className="infoBox__recovered"
             onClick={(e) => setCasesType("recovered")}
@@ -128,6 +179,7 @@ function App() {
             isloading={isLoading}
           />
           <InfoBox
+          theme={theme} 
             isGrey
             active={casesType === "deaths"}
             className="infoBox__deaths"
@@ -146,15 +198,15 @@ function App() {
           casesType={casesType}
         />
       </div>
-      <Card className="app__right">
+      <Card className={`app__right ${!theme && "app_rightDark"}`}>
         <CardContent>
-          <h3>Live Cases by Country</h3>
-          <Table countries={tableData} />
+          <h3 className={`${!theme &&"app__tableHeadingDark"}`}>Live Cases by Country</h3>
+          <Table countries={tableData} theme={theme} />
           {/* ascending order of no. of cases of all the countries  */}
-          <h3 className="app__graphTitle">WorldWide new {casesType}</h3>
+          <h3 className={`app__graphTitle ${!theme &&"app__tableHeadingDark"}`}>WorldWide new {casesType}</h3>
           <LineGraph className="app__graph" casesType={casesType} />
         </CardContent>
-        
+
         {/* Graph */}
       </Card>
     </div>

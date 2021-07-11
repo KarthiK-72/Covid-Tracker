@@ -17,3 +17,12 @@
 .table tr:nth-of-type(odd) {
   background-color: #f3f2f8;
 }
+.table__dark{
+  margin-top: 20px;
+  overflow: scroll;
+  height: 400px;
+  background-color: #84c9fb;  /*03dac5*/
+}
+.table__dark1{
+  background-color: #CCF6C8;
+}

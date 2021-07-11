@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
+import { casesTypeColors } from "./util";
 
 const options = {
   legend: {
@@ -47,7 +48,7 @@ const options = {
   },
 };
 
-const buildChartData = (data, casesType) => {
+const buildChartData = (data, casesType = "cases") => {
   let chartData = [];
   let lastDataPoint;
   for (let date in data.cases) {
@@ -62,7 +63,14 @@ const buildChartData = (data, casesType) => {
   }
   return chartData;
 };
-
+const generateActiveCases = (data) => {
+  let active = {};
+  for (let date in data["cases"]) {
+    active[date] =
+      data["cases"][date] - data["recovered"][date] - data["deaths"][date];
+  }
+  return active;
+};
 function LineGraph({ casesType, ...props }) {
   const [data, setData] = useState({});
 
@@ -73,9 +81,15 @@ function LineGraph({ casesType, ...props }) {
           return response.json();
         })
         .then((data) => {
-          let chartData = buildChartData(data, casesType);
-          setData(chartData);
-          console.log(chartData);
+          if (casesType === "active") {
+            let activeCases = generateActiveCases(data);
+            data["active"] = activeCases;
+            console.log("active ", data);
+            casesType = "active";
+            //  return;
+          }
+          setData(buildChartData(data, casesType));
+
           // buildChart(chartData);
         });
     };
@@ -90,8 +104,8 @@ function LineGraph({ casesType, ...props }) {
           data={{
             datasets: [
               {
-                backgroundColor: "rgba(204, 16, 52, 0.5)",
-                borderColor: "#CC1034",
+                backgroundColor: casesTypeColors[casesType].half_op,
+                borderColor: casesTypeColors[casesType].hex,
                 data: data,
               },
             ],

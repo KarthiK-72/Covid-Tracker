@@ -1,24 +1,32 @@
 import React from "react";
 import numeral from "numeral";
 import { Circle, Popup } from "react-leaflet";
+import { lightGreen } from "@material-ui/core/colors";
 
-const casesTypeColors = {
+export const casesTypeColors = {
   cases: {
     hex: "#CC1034",
-
+    rgb: "rgb(204, 16, 52)",
+    half_op: "rgba(204, 16, 52, 0.25)",
     mulitiplier: 800,
   },
-
+  active:{
+    hex:"rgba(0,123,255,.52549019607843137)",
+    half_op:"rgba(72,163,255,0.25)",
+    mulitiplier: 3000,
+  },
   recovered: {
-    hex: "#7DD71D",
-
+    hex: "rgb(10,140,40)",
+    rgb: "rgb(120, 215, 29)",
+    half_op: "rgba(125,215,29, 0.25)",
     mulitiplier: 1200,
   },
 
   deaths: {
-    hex: "#C0C0C0",
-
-    mulitiplier: 2000,
+    hex: "#808080",
+    rgb: "rgb(251, 68, 67)",
+    half_op: "rgba(169, 164, 164, 0.2)",
+    mulitiplier: 3500,
   },
 };
 
