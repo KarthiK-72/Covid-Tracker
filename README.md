@@ -1,10 +1,10 @@
 # Covid-19 Tracker 
-###  This is a user friendly app which gives information of covid cases across countries .
+###  This is a user friendly app which gives information of covid cases across countries.
 <ul>
         <li> Used React and Material UI for designing the app</li>
-         <li> Used firbase for deploying the app.</li>
+         <li> Used firebase for deploying the app.</li>
          <liShows Live, Active, Recoveries, Deaths cases></li>
-         <li> Shows Worldwide cases and Country Based cases diaplyed on the map.</li>
+         <li> Shows Worldwide cases and Country Based cases diaplayed on the map.</li>
          <li>Shows the Live cases by country in decreasing order in a table .</li>
          <li>Graph for showing the past 4 months cases in each country. </li>
          <li> Clickable Markers on Map show Country stats</li>
