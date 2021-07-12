@@ -10,7 +10,7 @@
         - Clickable Markers on Map show Country stats
         - Works in both light mode and dark mode
 
-Deployed live on [Covid-19 Tracker](https://covid-tracker-e72e3.web.app/)
+### Deployed live on [Covid-19 Tracker](https://covid-tracker-e72e3.web.app/) . Checkout project here !!
 
 ### Light Mode
 ![image](https://user-images.githubusercontent.com/84001343/125254096-c263b780-e317-11eb-989c-cdfd0a2b59ce.png)
