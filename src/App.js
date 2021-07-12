@@ -15,6 +15,9 @@ import LineGraph from "./LineGraph";
 //import "mapbox-gl/dist/mapbox-gl.css";
 import "leaflet/dist/leaflet.css";
 import "./InfoBox.css";
+import BootstrapSwitchButton from "bootstrap-switch-button-react";
+import DarkModeToggle from "react-dark-mode-toggle";
+
 //import styled from "styled-components";
 //import { DarkMode } from "@styled-icons/material-twotone";
 
@@ -23,14 +26,16 @@ function App() {
   const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
-  const [mapCenter, setMapCenter] = useState([34.80746, -40.4796]);
-  const [zoom, setZoom] = useState(3);
+  const [mapCenter, setMapCenter] = useState([22, 78]);
+  const [zoom, setZoom] = useState(2);
   const [mapCountries, setMapCountries] = useState([]);
   const [casesType, setCasesType] = useState("cases");
   const [isLoading, setLoading] = useState(false);
   const [theme, setTheme] = useState(true);
-  const [imageLink,setImageLink]=useState("https://static.thenounproject.com/png/765894-200.png");
-
+  const [imageLink, setImageLink] = useState(
+    "https://static.thenounproject.com/png/765894-200.png"
+  );
+  
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
       .then((response) => response.json())
@@ -103,26 +108,46 @@ function App() {
   function theme_setter() {
     if (theme === true) {
       setTheme(false);
-      setImageLink("https://cdn1.iconfinder.com/data/icons/mix-ui/24/Sun_Brightness_Day_Light_Weather_Mode-512.png")
+      setImageLink(
+        "https://cdn1.iconfinder.com/data/icons/mix-ui/24/Sun_Brightness_Day_Light_Weather_Mode-512.png"
+      );
+      
     } else {
       setTheme(true);
       setImageLink("https://static.thenounproject.com/png/765894-200.png");
+      
     }
     console.log(theme);
   }
+  /*function toggleSetter(){
+    if(toggle===true){
+      setToggle(false);
+      setTheme(false);
+    }else{
+      setToggle(true);
+      setTheme(true);
+    }
+  }*/
+
+ 
   return (
     <div className={`app ${!theme && "app__dark"}`}>
       <div className="app__left">
         <div className="app__header">
-          <h1 className={`app__heading ${!theme && "heading__dark"}`}>Covid-19 Tracker</h1>
+          <h1 className={`app__heading ${!theme && "heading__dark"}`}>
+            Covid-19 Tracker
+          </h1>
           {/* Heading*/}
+          <DarkModeToggle onChange={theme_setter} checked={ theme} size={80} />
           <img
             onClick={theme_setter}
             className="app__icon"
             alt=""
             src={imageLink}
           ></img>
-          <FormControl className={`app__dropdown ${!theme && "app__dropdownDark"}`}>
+          <FormControl
+            className={`app__dropdown ${!theme && "app__dropdownDark"}`}
+          >
             <Select
               variant="outlined"
               onChange={onCountryChange}
@@ -151,7 +176,7 @@ function App() {
             isloading={isLoading}
           />
           <InfoBox
-          theme={theme}
+            theme={theme}
             isBlue
             active={casesType === "active"}
             className="infoBox__active"
@@ -179,7 +204,7 @@ function App() {
             isloading={isLoading}
           />
           <InfoBox
-          theme={theme} 
+            theme={theme}
             isGrey
             active={casesType === "deaths"}
             className="infoBox__deaths"
@@ -200,10 +225,16 @@ function App() {
       </div>
       <Card className={`app__right ${!theme && "app_rightDark"}`}>
         <CardContent>
-          <h3 className={`${!theme &&"app__tableHeadingDark"}`}>Live Cases by Country</h3>
+          <h3 className={`${!theme && "app__tableHeadingDark"}`}>
+            Live Cases by Country
+          </h3>
           <Table countries={tableData} theme={theme} />
           {/* ascending order of no. of cases of all the countries  */}
-          <h3 className={`app__graphTitle ${!theme &&"app__tableHeadingDark"}`}>WorldWide new {casesType}</h3>
+          <h3
+            className={`app__graphTitle ${!theme && "app__tableHeadingDark"}`}
+          >
+            WorldWide new {casesType}
+          </h3>
           <LineGraph className="app__graph" casesType={casesType} />
         </CardContent>
 
