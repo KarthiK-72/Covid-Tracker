@@ -1,5 +1,5 @@
 # Covid-19 Tracker 
-### - This is a user friendly app which gives information of covid cases across countries .
+###  This is a user friendly app which gives information of covid cases across countries .
 <ul>
         <li> Used React and Material UI for designing the app</li>
          <li> Used firbase for deploying the app.</li>
