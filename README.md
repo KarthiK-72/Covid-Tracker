@@ -1,4 +1,5 @@
 # Covid-19 Tracker 
+### - This is a user friendly app which gives information of covid cases across countries .
 <ul>
         <li> Used React and Material UI for designing the app</li>
          <li> Used firbase for deploying the app.</li>
@@ -10,15 +11,7 @@
          <li>Works in both light mode and dark mode
 </li>
 </ul>
-### - This is a user friendly app which gives information of covid cases across countries .
-        -
-        -
-        - 
-        -
-        - 
-        - 
-        -
-        - 
+
 ### Deployed live on [Covid-19 Tracker](https://covid-tracker-e72e3.web.app/) . Checkout project here !!
 
 ### Light Mode
