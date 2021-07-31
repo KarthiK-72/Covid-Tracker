@@ -52,7 +52,7 @@ export const showDataOnMap = (data, casesType) =>
         fillColor: casesTypeColors[casesType].hex,
       }}
       radius={
-        Math.sqrt(country[casesType] / 10) *
+        Math.sqrt(Math.abs(country[casesType]) / 10) *
         casesTypeColors[casesType].mulitiplier
       }
     >
